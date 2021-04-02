@@ -1,7 +1,10 @@
-// 封装hash函数
+// TODO 实现一个Hash表
 class hashTable {
+    // TODO 存储散列表的数组
     storage = [];
+    // TODO 存储元素总数
     count = 0;
+    // TODO 数组的长度
     limit = 7;
     // TODO hash函数，将字符串的key转换为数字，然后取余获取index
     hashCode(str, size) {
@@ -37,7 +40,7 @@ class hashTable {
         this.count += 1;
         // TODO 判断是否需要扩容
         if (this.count > this.limit * 0.75) {
-            this.resize(this.limit * 2);
+            this.resize(this.getPrime(this.limit * 2));
         }
     }
     // TODO 根据key获取元素
@@ -79,7 +82,8 @@ class hashTable {
         }
         // TODO每一次删除内容后都判断一下是否需要缩容
         if (this.limit > 7 && this.count < this.limit * 0.25) {
-            this.resize(Math.floor(this.limit / 2));
+
+            this.resize(this.getPrime(Math.floor(this.limit / 2)));
         }
         // 如果桶里没有元素，就返回null
         return null;
@@ -113,6 +117,23 @@ class hashTable {
                 this.put(tulpe[0], tulpe[1])
             }
         }
+    }
+    // TODO 判断是否为一个质数
+    isPrime() {
+        let temp = parseInt(Math.sqrt(num));
+        for (let i = 0; i <= temp; i++) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+    // TODO 获取质数
+    getPrime(num) {
+        while (!this.isPrime(num)) {
+            num += 1;
+        }
+        return num;
     }
 }
 
