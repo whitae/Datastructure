@@ -109,6 +109,7 @@ class BinarySearchTree {
         let parent = null;
         let isLeft = true;
         // 不停的循环向下查找
+        // 如果key值不匹配的话就继续向下层寻找
         while(current.key != key){
             parent = current;
             if(key < current.key){
@@ -123,6 +124,39 @@ class BinarySearchTree {
         }
 
         // 如果找到就进行删除操作
+        // TODO 如果要删除的节点是一个叶子节点
+        if(current.left == null && current.right == null){
+            if (current == this.root){
+                // 如果要删除的节点本身也是一个根节点
+                this.root = null;
+            }else if(isLeft == true){
+                // 如果要删除的节点是左子树的节点
+                parent.left = null;
+            }else{
+                // 如果要删除的节点是一个右子树的节点
+                parent.right = null;
+            }
+        }
+        // TODO 如果要删除的节点只有一侧的子节点(即有一个左儿子或者一个右儿子)
+        else if(current.right == null){
+            // 没有右子节点
+            if(current == this.root){
+                this.root = current.left;
+            }else if(isLeft){
+                parent.left = current.left;
+            }else{
+                parent.right = current.left;
+            }
+        }else if(current.left == null){
+            // 没有左子节点
+            if(current == this.root){
+                this.root = current.right;
+            }else if(isLeft){
+                parent.left = current.right;
+            }else{
+                parent.right = current.right;
+            }
+        }
     }
 }
 let bst = new BinarySearchTree();
