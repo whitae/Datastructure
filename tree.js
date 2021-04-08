@@ -157,7 +157,43 @@ class BinarySearchTree {
                 parent.right = current.right;
             }
         }
+        // TODO 有两个子节点
+        else{
+            // 获取要删除节点的后继节点
+            let successor = this.getSuccessor(current);
+            if(current == this.root){
+                this.root = successor;
+            }else if(isLeft){
+                parent.left = successor;
+            }else{
+                parent.right = successor;
+            }
+            // 此时后继节点已经替换了被删除节点的位置
+            // 被删除节点的左子树要
+            successor.left = current.left;
+        }
     }
+
+    // TODO 寻找后继
+    getSuccessor(delNode){
+        // 定义变量，保存找到的后继
+        let successor = delNode;
+        let current = delNode.right;
+        let successParent = delNode;
+        // 循环查找
+        while(current!=null){
+            successParent = successor;
+            successor = current;
+            current = current.left;
+        }
+        // 判断寻找的后继节点是否直接就是delNode的right节点
+        if(successor != delNode.right){
+            successParent.left = successor.right;
+            successor.right = delNode.right;
+        }
+        return successor;
+    }
+
 }
 let bst = new BinarySearchTree();
 bst.insert(10);
