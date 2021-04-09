@@ -184,10 +184,12 @@ class BinarySearchTree {
         while(current!=null){
             successParent = successor;
             successor = current;
+            // 后继节点 要一直向左子树寻找
             current = current.left;
         }
         // 判断寻找的后继节点是否直接就是delNode的right节点
         if(successor != delNode.right){
+            // 后继节点只有右子树 这个好好考虑一下
             successParent.left = successor.right;
             successor.right = delNode.right;
         }
@@ -204,6 +206,8 @@ bst.insert(999);
 bst.preOrderTraversal();
 bst.midOrderTraversal();
 bst.postOrderTraversal();
+bst.remove(100);
 console.log(bst.max());
 console.log(bst.min());
 console.log(bst.search(99));
+console.log(bst.root);
